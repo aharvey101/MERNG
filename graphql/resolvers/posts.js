@@ -52,6 +52,7 @@ module.exports = {
       const user = checkAuth(context)
       try {
         const post = await Post.findById(postId)
+
         if (user.username === post.username) {
           await post.delete()
           return 'Post deleted successfully'
