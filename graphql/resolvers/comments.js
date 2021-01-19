@@ -13,17 +13,24 @@ module.exports = {
           },
         })
       }
-      const post = Post.findById(postId)
+      console.log(postId)
+      const post = Post.findOne({ postId })
+      console.log(post)
 
-      if (post) {
-        post.comments.unshift({
-          body,
-          username,
-          createdAt: new Date().toISOString(),
-        })
-        await post.save()
-        return post
-      } else throw new UserInputError('Post not found')
+      if (!post.comments) {
+        console.log(`post comments array empty ${post.comments}`)
+        post.comments.push('1')
+      }
+
+      // if (post) {
+      //   post.comments.unshift({
+      //     body,
+      //     username,
+      //     createdAt: new Date().toISOString(),
+      //   })
+      //   await post.save()
+      //   return post
+      // } else throw new UserInputError('Post not found')
     },
   },
 }

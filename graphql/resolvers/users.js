@@ -1,12 +1,12 @@
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const { UserInputError } = require('apollo-server')
+const User = require('../../models/User')
 
 const {
   validateRegisterInput,
   validateLoginInput,
 } = require('../../util/validators')
-const User = require('../../models/User')
 
 function generateToken(user) {
   return jwt.sign(
@@ -30,7 +30,7 @@ module.exports = {
       }
 
       const user = await User.findOne({ username })
-
+      console.log(user)
       if (!user) {
         errors.general = 'User not found'
         throw new UserInputError('User not found', { errors })
